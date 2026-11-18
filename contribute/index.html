@@ -1,0 +1,90 @@
+---
+layout: default
+title: "Contribute & Schema Specification"
+description: "Submit a structured resource evaluation or decision record via Git pull request using the ResourceRank Jekyll schema."
+---
+
+<div class="page-banner">
+  <div class="container">
+    <span class="section-kicker">Open Participation</span>
+    <h1>Contribute to ResourceRank</h1>
+    <p class="lead">
+      ResourceRank is maintained as an open Git-backed static registry. Every evaluation and decision record is peer-reviewed via pull request before publication.
+    </p>
+  </div>
+</div>
+
+<section class="section" id="governance">
+  <div class="container">
+    <h2>Submission Workflow</h2>
+    <div class="steps-grid">
+      <div class="card step-card">
+        <span class="step-num mono">01</span>
+        <h3>Gather Verifiable Evidence</h3>
+        <p>Collect immutable links, cryptographic release hashes, benchmark DOIs, and SPDX license identifiers for the target resource.</p>
+      </div>
+      <div class="card step-card">
+        <span class="step-num mono">02</span>
+        <h3>Author YAML Frontmatter</h3>
+        <p>Create a Markdown record in <code>_evaluations/</code> or <code>_decisions/</code> conforming to the schema below.</p>
+      </div>
+      <div class="card step-card">
+        <span class="step-num mono">03</span>
+        <h3>Peer Review &amp; Consensus</h3>
+        <p>Working group reviewers validate score calculations, verify artifact hashes, and merge approved records into the public build.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="schema">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-kicker">Template</span>
+        <h2>Evaluation Record Frontmatter Schema</h2>
+      </div>
+      <button type="button" class="btn btn-secondary" id="copy-template-btn">Copy YAML Template</button>
+    </div>
+
+    <div class="card">
+      <pre class="code-preview" id="yaml-template"><code>---
+title: "Example Open Resource"
+resource_id: "RR-SW-0099"
+category: "Software" # Software | Dataset | Platform | Digital Resource
+version: "2.4.0"
+license: "Apache-2.0"
+steward: "Example Foundation"
+canonical_url: "https://example.org"
+assessor: "Working Group Name"
+assessed_date: 2026-11-18
+overall_score: 88
+decision_id: "RDR-002"
+decision_record: "/decisions/rdr-002-transactional-persistence/"
+summary: "Concise one-sentence description of the evaluated resource."
+dimensions:
+  - name: "Provenance & Lineage"
+    weight: 25
+    score: 90
+    notes: "Signed releases and clear SPDX licensing."
+  - name: "Empirical Evidence & Reproducibility"
+    weight: 30
+    score: 86
+    notes: "Public benchmark suite with reproducible instructions."
+  - name: "Operational Reliability & Maintenance"
+    weight: 25
+    score: 88
+    notes: "Active multi-maintainer governance and CI coverage."
+  - name: "Open Standards & Interoperability"
+    weight: 20
+    score: 88
+    notes: "Supports open protocols and lossless data export."
+evidence:
+  - id: "EV-099-A"
+    type: "Provenance"
+    description: "Release SHA-256 Checksum & Provenance Attestation"
+    reference: "sha256:e3b0c44298fc1c149afbf4c8996fb924..."
+---</code></pre>
+    </div>
+  </div>
+</section>

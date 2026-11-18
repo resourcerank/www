@@ -1,0 +1,128 @@
+---
+layout: default
+---
+<article class="detail-page">
+  <div class="detail-header">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="{{ '/' | relative_url }}">Home</a> /
+        <a href="{{ '/evaluations/' | relative_url }}">Evaluations</a> /
+        <span>{{ page.resource_id }}</span>
+      </nav>
+
+      <div class="detail-title-row">
+        <div>
+          <div class="meta-tags">
+            <span class="tag tag-category">{{ page.category }}</span>
+            <span class="tag tag-mono">{{ page.resource_id }}</span>
+            <span class="tag tag-license">{{ page.license }}</span>
+          </div>
+          <h1>{{ page.title }}</h1>
+          <p class="lead">{{ page.summary }}</p>
+        </div>
+        <div class="detail-score-box">
+          {% include score-badge.html score=page.overall_score %}
+          <div class="meta-caption">Assessed {{ page.assessed_date | date: "%Y-%m-%d" }}</div>
+          <div class="meta-caption">Version: <code>{{ page.version }}</code></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container detail-grid">
+    <div class="detail-main">
+      <section class="card section-block">
+        <h2>Dimension Breakdown</h2>
+        <div class="dimension-bars">
+          {% for dim in page.dimensions %}
+          <div class="dim-row">
+            <div class="dim-header">
+              <span class="dim-name">{{ dim.name }} <small class="muted">({{ dim.weight }}%)</small></span>
+              <span class="dim-val mono">{{ dim.score }}/100</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" style="width: {{ dim.score }}%"></div>
+            </div>
+            <p class="dim-note">{{ dim.notes }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="card section-block">
+        <h2>Assessment Findings &amp; Analysis</h2>
+        <div class="prose">
+          {{ content }}
+        </div>
+      </section>
+
+      {% if page.evidence %}
+      <section class="card section-block">
+        <h2>Verified Evidence Artifacts</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Artifact ID</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Verification Hash / Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in page.evidence %}
+              <tr>
+                <td class="mono">{{ item.id }}</td>
+                <td><span class="tag">{{ item.type }}</span></td>
+                <td>{{ item.description }}</td>
+                <td class="mono small">{{ item.reference }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+      {% endif %}
+    </div>
+
+    <aside class="detail-sidebar">
+      <div class="card sidebar-card">
+        <h3>Provenance Record</h3>
+        <dl class="kv-list">
+          <dt>Canonical URI</dt>
+          <dd><a href="{{ page.canonical_url }}" target="_blank" rel="noopener">{{ page.canonical_url }}</a></dd>
+          <dt>Maintainer / Steward</dt>
+          <dd>{{ page.steward }}</dd>
+          <dt>License (SPDX)</dt>
+          <dd><code>{{ page.license }}</code></dd>
+          <dt>Evaluated Version</dt>
+          <dd><code>{{ page.version }}</code></dd>
+          <dt>Lead Assessor</dt>
+          <dd>{{ page.assessor }}</dd>
+          <dt>Decision Record</dt>
+          <dd>
+            {% if page.decision_record %}
+              <a href="{{ page.decision_record | relative_url }}">{{ page.decision_id }}</a>
+            {% else %}
+              <span class="muted">Pending RDR</span>
+            {% endif %}
+          </dd>
+        </dl>
+      </div>
+
+      <div class="card sidebar-card">
+        <h3>Machine-Readable Record</h3>
+        <p class="small muted">Export this structured assessment as JSON for automated policy gates or CI verification.</p>
+        <button type="button" class="btn btn-secondary btn-full" id="copy-json-btn" data-json='{
+          "resource_id": "{{ page.resource_id }}",
+          "title": "{{ page.title | escape }}",
+          "category": "{{ page.category }}",
+          "version": "{{ page.version }}",
+          "license": "{{ page.license }}",
+          "overall_score": {{ page.overall_score }},
+          "assessed_date": "{{ page.assessed_date | date: "%Y-%m-%d" }}"
+        }'>Copy JSON Metadata</button>
+      </div>
+    </aside>
+  </div>
+</article>

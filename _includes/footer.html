@@ -1,0 +1,47 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <div class="brand">
+        <img src="{{ '/assets/images/logo.png' | relative_url }}" alt="ResourceRank Logo" class="brand-logo" width="32" height="32">
+        <span class="brand-name">ResourceRank</span>
+      </div>
+      <p class="footer-tagline">
+        An open, verifiable standard for evaluating software, datasets, platforms, and digital infrastructure through structured evidence and transparent decision records.
+      </p>
+      <p class="footer-meta">
+        Specification licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Code under <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT</a>.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Standard</h4>
+      <ul>
+        <li><a href="{{ '/framework/' | relative_url }}">Evaluation Rubric</a></li>
+        <li><a href="{{ '/framework/#provenance-schema' | relative_url }}">Provenance Schema</a></li>
+        <li><a href="{{ '/framework/#calculator' | relative_url }}">Interactive Score Simulator</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Registry</h4>
+      <ul>
+        <li><a href="{{ '/evaluations/' | relative_url }}">Resource Assessments</a></li>
+        <li><a href="{{ '/decisions/' | relative_url }}">Decision Records (RDR)</a></li>
+        <li><a href="{{ '/contribute/' | relative_url }}">Submit an Evaluation</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Governance</h4>
+      <ul>
+        <li><a href="{{ '/contribute/#governance' | relative_url }}">Review Protocol</a></li>
+        <li><a href="{{ '/contribute/#schema' | relative_url }}">JSON-LD / YAML Schema</a></li>
+        <li><a href="https://resourcerank.org">resourcerank.org</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>&copy; {{ 'now' | date: "%Y" }} ResourceRank Open Initiative.</span>
+    <span class="mono">Build: Jekyll Static Registry</span>
+  </div>
+</footer>

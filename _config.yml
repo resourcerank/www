@@ -1,0 +1,44 @@
+title: ResourceRank
+tagline: Open Framework for Evidence-Based Resource Evaluation
+description: >-
+  ResourceRank provides an open framework for evaluating software, datasets,
+  platforms, and digital resources through structured assessments, evidence,
+  provenance, and transparent decision records.
+url: "https://resourcerank.org"
+baseurl: ""
+repository: "resourcerank/resourcerank.org"
+
+permalink: pretty
+
+collections:
+  evaluations:
+    output: true
+    permalink: /evaluations/:name/
+  decisions:
+    output: true
+    permalink: /decisions/:name/
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "evaluations"
+    values:
+      layout: "evaluation"
+  - scope:
+      path: ""
+      type: "decisions"
+    values:
+      layout: "decision"
+
+markdown: kramdown
+highlighter: rouge
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/

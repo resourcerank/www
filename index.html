@@ -1,0 +1,159 @@
+---
+layout: default
+title: "Open Framework for Evaluating Digital Resources"
+---
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">
+        <span class="pulse-dot"></span>
+        <span>Open Specification &amp; Public Registry &bull; resourcerank.org</span>
+      </div>
+      <h1>Trust digital resources through <span class="gradient-text">verifiable evidence</span>, not hype.</h1>
+      <p class="hero-lead">
+        ResourceRank is an open framework for evaluating software, datasets, platforms, and digital resources through structured assessments, cryptographic provenance, and transparent decision records.
+      </p>
+      <div class="hero-actions">
+        <a href="{{ '/evaluations/' | relative_url }}" class="btn btn-primary">Explore Registry</a>
+        <a href="{{ '/framework/' | relative_url }}" class="btn btn-secondary">Read the Specification</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-val">{{ site.evaluations.size }}</span>
+          <span class="stat-label">Assessed Resources</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val">{{ site.decisions.size }}</span>
+          <span class="stat-label">Decision Records</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val">4</span>
+          <span class="stat-label">Weighted Pillars</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-val">100%</span>
+          <span class="stat-label">Open &amp; Auditable</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="spec-card">
+        <div class="spec-card-header">
+          <div class="window-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span class="mono small">evaluation-record.json</span>
+          <span class="badge-live">VERIFIED</span>
+        </div>
+        <pre class="code-preview"><code>{
+  <span class="k">"@context"</span>: <span class="s">"https://resourcerank.org/ns/v1"</span>,
+  <span class="k">"resource_id"</span>: <span class="s">"RR-SW-0014"</span>,
+  <span class="k">"name"</span>: <span class="s">"Apache Arrow"</span>,
+  <span class="k">"version"</span>: <span class="s">"17.0.0"</span>,
+  <span class="k">"scores"</span>: {
+    <span class="k">"provenance"</span>: <span class="n">96</span>,
+    <span class="k">"evidence"</span>: <span class="n">92</span>,
+    <span class="k">"reliability"</span>: <span class="n">93</span>,
+    <span class="k">"interoperability"</span>: <span class="n">96</span>,
+    <span class="k">"composite"</span>: <span class="n">94</span>
+  },
+  <span class="k">"decision_record"</span>: <span class="s">"RDR-004"</span>
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-kicker">Methodology</span>
+        <h2>Four Pillars of Structured Assessment</h2>
+      </div>
+      <a href="{{ '/framework/' | relative_url }}" class="link-arrow">Full scoring rubric &rarr;</a>
+    </div>
+
+    <div class="pillars-grid">
+      {% for pillar in site.data.criteria %}
+      <div class="card pillar-card">
+        <div class="pillar-top">
+          <span class="pillar-weight">{{ pillar.weight }}% Weight</span>
+          <span class="mono small muted">#{{ forloop.index }}</span>
+        </div>
+        <h3>{{ pillar.name }}</h3>
+        <p>{{ pillar.description }}</p>
+        <ul class="check-list">
+          {% for ind in pillar.indicators %}
+          <li>{{ ind }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-kicker">Public Registry</span>
+        <h2>Recent Resource Evaluations</h2>
+      </div>
+      <a href="{{ '/evaluations/' | relative_url }}" class="link-arrow">View all evaluations &rarr;</a>
+    </div>
+
+    <div class="cards-grid">
+      {% assign sorted_evals = site.evaluations | sort: "overall_score" | reverse %}
+      {% for item in sorted_evals limit: 3 %}
+      <article class="card resource-card">
+        <div class="card-top">
+          <span class="tag tag-category">{{ item.category }}</span>
+          {% include score-badge.html score=item.overall_score %}
+        </div>
+        <h3><a href="{{ item.url | relative_url }}">{{ item.title }}</a></h3>
+        <p class="card-summary">{{ item.summary }}</p>
+        <div class="card-meta">
+          <span class="mono small">{{ item.resource_id }}</span>
+          <span class="small muted">{{ item.license }}</span>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-kicker">Governance &amp; Rationale</span>
+        <h2>Transparent Decision Records (RDR)</h2>
+      </div>
+      <a href="{{ '/decisions/' | relative_url }}" class="link-arrow">Browse RDR archive &rarr;</a>
+    </div>
+
+    <div class="rdr-list">
+      {% assign sorted_rdr = site.decisions | sort: "date" | reverse %}
+      {% for rdr in sorted_rdr limit: 3 %}
+      <a href="{{ rdr.url | relative_url }}" class="card rdr-row">
+        <div class="rdr-id-col">
+          <span class="mono rdr-code">{{ rdr.rdr_id }}</span>
+          <span class="tag status-{{ rdr.status | downcase }}">{{ rdr.status }}</span>
+        </div>
+        <div class="rdr-body-col">
+          <h3>{{ rdr.title }}</h3>
+          <p>{{ rdr.summary }}</p>
+        </div>
+        <div class="rdr-date-col">
+          <span class="mono small muted">{{ rdr.date | date: "%Y-%m-%d" }}</span>
+          <span class="small">{{ rdr.domain }}</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>

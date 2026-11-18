@@ -1,0 +1,153 @@
+---
+layout: default
+title: "Evaluation Framework & Scoring Rubric"
+description: "Detailed methodology, weighting model, provenance schema, and interactive score simulator for ResourceRank v1.0."
+---
+
+<div class="page-banner">
+  <div class="container">
+    <span class="section-kicker">Specification v1.0</span>
+    <h1>The ResourceRank Evaluation Framework</h1>
+    <p class="lead">
+      A deterministic, evidence-first methodology for assessing software, datasets, platforms, and digital resources without vendor pay-to-play bias.
+    </p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <h2>1. Weighted Scoring Model</h2>
+    <p class="section-intro">
+      Every ResourceRank composite score ($S \in [0, 100]$) is computed as a weighted sum across four orthogonal evaluation dimensions. Each dimension must be backed by verifiable evidence artifacts.
+    </p>
+
+    <div class="pillars-grid">
+      {% for pillar in site.data.criteria %}
+      <div class="card pillar-card">
+        <div class="pillar-top">
+          <span class="pillar-weight">{{ pillar.weight }}% Weight</span>
+          <span class="mono small">ID: {{ pillar.id }}</span>
+        </div>
+        <h3>{{ pillar.name }}</h3>
+        <p>{{ pillar.description }}</p>
+        <h4>Required Evidence Indicators</h4>
+        <ul class="check-list">
+          {% for ind in pillar.indicators %}
+          <li>{{ ind }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="tier-legend card">
+      <h3>Classification Thresholds</h3>
+      <div class="tier-grid">
+        <div class="tier-item">
+          {% include score-badge.html score=92 %}
+          <p class="small"><strong>90–100:</strong> Meets all provenance, reproducibility, and open standard criteria with independent verification.</p>
+        </div>
+        <div class="tier-item">
+          {% include score-badge.html score=80 %}
+          <p class="small"><strong>75–89:</strong> Production-ready resource with documented lineage and minor governance or portability caveats.</p>
+        </div>
+        <div class="tier-item">
+          {% include score-badge.html score=65 %}
+          <p class="small"><strong>60–74:</strong> Usable with explicit mitigations; incomplete audit trails or partial lock-in risks identified.</p>
+        </div>
+        <div class="tier-item">
+          {% include score-badge.html score=45 %}
+          <p class="small"><strong>0–59:</strong> Insufficient evidence, unclear licensing, or unverified provenance; not recommended for critical adoption.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="calculator">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-kicker">Interactive Tool</span>
+        <h2>Composite Score Simulator</h2>
+      </div>
+    </div>
+    <p class="section-intro">
+      Test how dimension scores combine under the ResourceRank v1.0 weighting specification.
+    </p>
+
+    <div class="card simulator-grid">
+      <div class="sim-controls">
+        <div class="slider-group">
+          <div class="slider-label">
+            <label for="sim-provenance">Provenance &amp; Lineage (25%)</label>
+            <span class="mono" id="val-provenance">90</span>
+          </div>
+          <input type="range" id="sim-provenance" min="0" max="100" value="90">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label">
+            <label for="sim-evidence">Empirical Evidence &amp; Reproducibility (30%)</label>
+            <span class="mono" id="val-evidence">85</span>
+          </div>
+          <input type="range" id="sim-evidence" min="0" max="100" value="85">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label">
+            <label for="sim-reliability">Operational Reliability &amp; Maintenance (25%)</label>
+            <span class="mono" id="val-reliability">88</span>
+          </div>
+          <input type="range" id="sim-reliability" min="0" max="100" value="88">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label">
+            <label for="sim-interoperability">Open Standards &amp; Interoperability (20%)</label>
+            <span class="mono" id="val-interoperability">92</span>
+          </div>
+          <input type="range" id="sim-interoperability" min="0" max="100" value="92">
+        </div>
+      </div>
+
+      <div class="sim-output">
+        <span class="small muted">Simulated Composite Score</span>
+        <div class="sim-big-score" id="sim-composite">88</div>
+        <div id="sim-tier-badge" class="score-pill tier-verified">
+          <span class="score-tier">Verified</span>
+        </div>
+        <p class="small muted sim-formula mono" id="sim-formula">
+          (90×0.25) + (85×0.30) + (88×0.25) + (92×0.20) = 88.4
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="provenance-schema">
+  <div class="container">
+    <h2>2. Provenance &amp; Evidence Artifact Rules</h2>
+    <div class="two-col">
+      <div class="card">
+        <h3>Evidence Verifiability</h3>
+        <p>
+          Claims without verifiable artifacts are scored at zero for the corresponding indicator. Acceptable artifacts include:
+        </p>
+        <ul class="check-list">
+          <li>Cryptographic hashes (SHA-256 / SHA-512) and Sigstore attestations</li>
+          <li>Persistent DOIs for benchmark papers and reproducibility packages</li>
+          <li>Publicly archived governance votes and SPDX license manifests</li>
+          <li>Reproducible containerized evaluation harnesses</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Decision Record Linkage</h3>
+        <p>
+          Every evaluation should link to at least one <strong>ResourceRank Decision Record (RDR)</strong> documenting why a resource was selected, conditionally approved, or rejected for a concrete architectural or research context.
+        </p>
+        <a href="{{ '/decisions/' | relative_url }}" class="btn btn-secondary">Inspect Decision Records</a>
+      </div>
+    </div>
+  </div>
+</section>

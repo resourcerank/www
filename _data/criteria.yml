@@ -1,0 +1,32 @@
+- id: provenance
+  name: Provenance & Lineage
+  weight: 25
+  description: Verifiable origin, authorship, licensing clarity, version history, and supply-chain integrity.
+  indicators:
+    - Cryptographically signed releases or verifiable checksums
+    - Explicit SPDX license identifiers and contributor attribution
+    - Transparent changelog and historical versioning
+- id: evidence
+  name: Empirical Evidence & Reproducibility
+  weight: 30
+  description: Quantitative benchmarks, reproducible methodologies, independent audits, and peer-reviewed validation.
+  indicators:
+    - Reproducible test suites or benchmark harnesses
+    - Independent third-party security or quality audits
+    - Documented methodology with raw data availability
+- id: reliability
+  name: Operational Reliability & Maintenance
+  weight: 25
+  description: Active stewardship, issue resolution velocity, architectural resilience, and backward compatibility.
+  indicators:
+    - Sustained commit cadence and multi-maintainer governance
+    - Automated CI/CD verification and regression coverage
+    - Documented deprecation policies and SLA transparency
+- id: interoperability
+  name: Open Standards & Interoperability
+  weight: 20
+  description: Adherence to open protocols, portable data formats, non-proprietary APIs, and low exit friction.
+  indicators:
+    - Support for open schemas (JSON-LD, Parquet, OpenAPI, etc.)
+    - Complete data export without proprietary lock-in
+    - Composable integration primitives

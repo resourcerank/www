@@ -1,0 +1,19 @@
+{% assign s = include.score | plus: 0 %}
+{% if s >= 90 %}
+  {% assign tier = "tier-exemplary" %}
+  {% assign label = "Exemplary" %}
+{% elsif s >= 75 %}
+  {% assign tier = "tier-verified" %}
+  {% assign label = "Verified" %}
+{% elsif s >= 60 %}
+  {% assign tier = "tier-provisional" %}
+  {% assign label = "Provisional" %}
+{% else %}
+  {% assign tier = "tier-caution" %}
+  {% assign label = "Needs Review" %}
+{% endif %}
+<span class="score-pill {{ tier }}" title="ResourceRank Composite Score: {{ s }}/100 ({{ label }})">
+  <span class="score-num">{{ s }}</span>
+  <span class="score-denom">/100</span>
+  <span class="score-tier">{{ label }}</span>
+</span>

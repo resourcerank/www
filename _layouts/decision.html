@@ -1,0 +1,62 @@
+---
+layout: default
+---
+<article class="detail-page">
+  <div class="detail-header">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="{{ '/' | relative_url }}">Home</a> /
+        <a href="{{ '/decisions/' | relative_url }}">Decision Records</a> /
+        <span>{{ page.rdr_id }}</span>
+      </nav>
+
+      <div class="detail-title-row">
+        <div>
+          <div class="meta-tags">
+            <span class="tag tag-mono">{{ page.rdr_id }}</span>
+            <span class="tag status-{{ page.status | downcase }}">{{ page.status }}</span>
+            <span class="tag">{{ page.domain }}</span>
+          </div>
+          <h1>{{ page.title }}</h1>
+          <p class="lead">{{ page.summary }}</p>
+        </div>
+        <div class="detail-score-box">
+          <div class="meta-caption">Recorded: <strong>{{ page.date | date: "%Y-%m-%d" }}</strong></div>
+          <div class="meta-caption">Review Cycle: <strong>{{ page.review_cycle }}</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container detail-grid">
+    <div class="detail-main">
+      <section class="card section-block prose">
+        {{ content }}
+      </section>
+    </div>
+
+    <aside class="detail-sidebar">
+      <div class="card sidebar-card">
+        <h3>RDR Metadata</h3>
+        <dl class="kv-list">
+          <dt>Record ID</dt>
+          <dd><code>{{ page.rdr_id }}</code></dd>
+          <dt>Status</dt>
+          <dd><strong>{{ page.status }}</strong></dd>
+          <dt>Decision Makers</dt>
+          <dd>{{ page.authors | join: ", " }}</dd>
+          <dt>Related Resource</dt>
+          <dd>
+            {% if page.related_evaluation %}
+              <a href="{{ page.related_evaluation | relative_url }}">{{ page.related_resource_name }}</a>
+            {% else %}
+              {{ page.related_resource_name }}
+            {% endif %}
+          </dd>
+          <dt>Supersedes</dt>
+          <dd>{{ page.supersedes | default: "None" }}</dd>
+        </dl>
+      </div>
+    </aside>
+  </div>
+</article>
